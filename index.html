@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="DieLogo2.png" sizes="32x32" />
   <title>DyeMera – Illuminating Discovery</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <style>
@@ -36,8 +37,7 @@
     .logo {
       font-family: 'DM Serif Display', serif;
       font-size: 1.55rem; letter-spacing: -0.5px; text-decoration: none;
-      background: linear-gradient(90deg, #c0267a 0%, #d44e1a 35%, #e8920a 55%, #4a9e2f 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      color: #ffffff;
     }
     .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
     .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
@@ -191,7 +191,10 @@
 <body>
 
   <nav>
-    <a href="#" class="logo">DyeMera</a>
+    <a href="#" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="DieLogo2.png" alt="DyeMera" style="height: 36px; display: block;" />
+      <span class="logo">DyeMera</span>
+    </a>
     <ul class="nav-links">
       <li><a href="#products">Products</a></li>
       <li><a href="#technology">Technology</a></li>
@@ -204,7 +207,7 @@
   <section class="hero">
     <canvas id="glowCanvas"></canvas>
     <div class="hero-content">
-      <div class="hero-tag">Patented DyeNamix Technology</div>
+      <div class="hero-tag">Patented LipoFLUDDY Technology</div>
       <h1>Illuminating Discovery<br>with <em>Advanced Fluorophores</em></h1>
       <p>Cutting-edge fluorescent labeling solutions for research, diagnostics and bioimaging — engineered for exceptional brightness, photostability, and specificity.</p>
       <div class="hero-actions">
@@ -217,38 +220,38 @@
   <!-- PRODUCTS -->
   <section class="products" id="products">
     <p class="section-label">Product Range</p>
-    <h2 class="section-title">Fluorophores for dynamic processes and live cell experiments</h2>
-    <p class="section-sub">Compatible with in vitro and in vivo microscopy, FACS, and platereader assays</p>
+    <h2 class="section-title">Fluorophores for Every Application</h2>
+    <p class="section-sub">From live-cell imaging to high-resolution confocal — we have you covered.</p>
     <div class="cards">
 
-      <!-- LipoFLUDDY -->
+      <!-- Lipo DyeNamix pH -->
       <div class="card featured-card">
         <video class="card-video" autoplay muted loop playsinline>
-          <source src="JustLipoFLUDDYSmooth.mp4" type="video/mp4">
+          <source src="JustLipoFLUDDY.mp4" type="video/mp4">
         </video>
-        <h3>LipoDyeNamix pH</h3>
+        <h3>Lipo DyeNamix pH</h3>
         <p>Our patented fluorophore for lipophagy. Exceptional brightness, photostability, and a complete kit with controls and buffers. Fully compatible with standard microscopy, FACS, and platereader assays.</p>
-        <span class="card-badge">Lipophagy</span>
+        <span class="card-badge">Patented</span>
       </div>
 
-      <!-- PeroxiFLUDDY -->
+      <!-- Lipo DyeNamix Oxi -->
       <div class="card">
-        <video class="card-video" autoplay muted loop playsinline>
-          <source src="peroxifluddy-bg.mp4" type="video/mp4">
+        <video class="card-video" autoplay muted loop playsinline style="object-fit: contain; transform: scale(0.95);">
+          <source src="LipoDynamixOxiSmooth.mp4" type="video/mp4">
         </video>
-        <h3>LipoDyeNamix Oxi</h3>
+        <h3>Lipo DyeNamix Oxi</h3>
         <p>A lipid droplet oxidation solution optimized for cellular imaging applications. Unique potential for Ferroptosis experiments.</p>
-        <span class="card-badge">Ferroptosis</span>
+        <span class="card-badge">Cellular Imaging</span>
       </div>
 
-      <!-- LDs DeepRed -->
+      <!-- Lipo DyeNamix DeepRed -->
       <div class="card">
         <video class="card-video" autoplay muted loop playsinline>
-          <source src="LDDeepRedSmooth.mp4" type="video/mp4">
+          <source src="LDDeepRed.mp4" type="video/mp4">
         </video>
-        <h3>LipoDyeNamix DeepRed</h3>
+        <h3>Lipo DyeNamix DeepRed</h3>
         <p>Specialized far-red fluorophore engineered for in vivo microscopy and minimal phototoxicity.</p>
-        <span class="card-badge" style="background:rgba(139,124,248,0.12);color:#8b7cf8;border-color:rgba(139,124,248,0.25);">In Vivo</span>
+        <span class="card-badge" style="background:rgba(139,124,248,0.12);color:#8b7cf8;border-color:rgba(139,124,248,0.25);">Confocal</span>
       </div>
 
     </div>
@@ -259,16 +262,16 @@
     <div class="features-inner">
       <div class="features-visual">
         <video autoplay muted loop playsinline>
-          <source src="AutoLysosomeSmooth.mp4" type="video/mp4">
+          <source src="AutoLysosomeArrowVid.mp4" type="video/mp4">
         </video>
       </div>
       <div class="features-text">
-        <h2>Why DyeNamix Dyes Set a New Standard</h2>
+        <h2>Why LipoFLUDDY Sets a New Standard</h2>
         <p>DyeMera's patented technology represents years of research into fluorescent chemistry, delivering performance that redefines what's possible in bioimaging and diagnostics.</p>
         <ul class="feat-list">
           <li><span class="feat-dot"></span>Superior brightness and photostability for extended imaging sessions</li>
           <li><span class="feat-dot"></span>Complete kit with controls and pre-optimized buffers</li>
-          <li><span class="feat-dot"></span>Drop-in compatible with standard confocal and widefield microscopes</li>
+          <li><span class="feat-dot"></span>Drop-in compatible with standard confocal and widefield microscopes, FACS, platereader assays, and Incucyte</li>
           <li><span class="feat-dot"></span>Validated for research and clinical diagnostic workflows</li>
         </ul>
         <a href="contact-dark-landing.html" class="btn">Discuss Your Application</a>
@@ -286,7 +289,10 @@
   </section>
 
   <footer>
-    <a href="#" class="logo" style="font-size:1.1rem;">DyeMera</a>
+    <a href="#" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="DieLogo2.png" alt="DyeMera" style="height: 28px; display: block;" />
+      <span class="logo" style="font-size: 1.1rem;">DyeMera</span>
+    </a>
     <ul class="footer-links">
       <li><a href="#products">Products</a></li>
       <li><a href="#technology">Technology</a></li>
