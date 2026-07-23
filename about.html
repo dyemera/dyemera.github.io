@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About – DyeMera</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #00AEEF; --teal: #00C9A7;
+      --dark: #080e14; --surface: #0f1923; --surface3: #1d2c3d;
+      --border: rgba(255,255,255,0.07); --text: #e8f0f7; --muted: #7a9bb5;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--dark); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(8,14,20,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
+    }
+    .logo {
+      font-family: 'DM Serif Display', serif; font-size: 1.55rem;
+      letter-spacing: -0.5px; text-decoration: none;
+      color: #ffffff;
+    }
+    .nav-links { display: flex; flex-direction: row; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+    .btn { background: var(--blue); color: #fff; border: none; padding: 10px 22px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .btn:hover { background: #009fd6; transform: translateY(-1px); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      position: relative; overflow: hidden; min-height: 240px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: var(--dark); padding: 64px 48px; text-align: center;
+    }
+    canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .page-header h1 {
+      font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 2.8rem);
+      margin-bottom: 14px; color: #fff; text-shadow: 0 0 40px rgba(0,174,239,0.4);
+      position: relative; z-index: 2;
+    }
+    .page-header p { color: rgba(255,255,255,0.55); font-size: 1rem; line-height: 1.7; max-width: 560px; position: relative; z-index: 2; }
+
+    /* ── SHARED SECTION HEADS ── */
+    section.block { padding: 96px 48px; border-top: 1px solid var(--border); }
+    .section-label {
+      text-align: center; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif; text-align: center;
+      font-size: clamp(1.7rem, 4vw, 2.4rem); color: var(--text); margin-bottom: 12px;
+    }
+    .section-sub { text-align: center; color: var(--muted); font-size: 0.95rem; margin-bottom: 60px; max-width: 620px; margin-left: auto; margin-right: auto; }
+
+    /* ── MISSION STRIP ── */
+    .mission { background: var(--surface); }
+    .mission-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .mission-inner p { font-size: 1.05rem; line-height: 1.85; color: rgba(232,240,247,0.85); }
+    .mission-inner p + p { margin-top: 18px; }
+
+    /* ── TEAM ── */
+    .team { background: var(--dark); }
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px; max-width: 1000px; margin: 0 auto;
+    }
+    .team-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+      padding: 36px 28px; text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .team-card:hover { border-color: rgba(0,174,239,0.3); box-shadow: 0 0 36px rgba(0,174,239,0.08); transform: translateY(-4px); }
+    .avatar {
+      width: 92px; height: 92px; border-radius: 50%;
+      margin: 0 auto 22px; display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    /* Photo slots: replace the .avatar div's content with
+       <img src="team-name.jpg" alt="Full Name" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
+       to swap in a real photo once uploaded. */
+    .avatar-1 { background: linear-gradient(135deg, #00AEEF, #0077b6); }
+    .avatar-2 { background: linear-gradient(135deg, #00C9A7, #00867a); }
+    .avatar-3 { background: linear-gradient(135deg, #8b7cf8, #5b4fc4); }
+    .team-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .team-role {
+      display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--blue); background: rgba(0,174,239,0.1);
+      border: 1px solid rgba(0,174,239,0.22); padding: 4px 12px; border-radius: 100px; margin-bottom: 16px;
+    }
+    .team-card p.bio { color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
+
+    /* ── COLLABORATORS ── */
+    .collab { background: var(--surface); }
+    .collab-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px; max-width: 1000px; margin: 0 auto;
+    }
+    .collab-badge {
+      background: var(--dark); border: 1px solid var(--border); border-radius: 14px;
+      padding: 26px 18px; display: flex; align-items: center; justify-content: center;
+      text-align: center; min-height: 92px;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .collab-badge:hover { border-color: rgba(0,201,167,0.3); box-shadow: 0 0 28px rgba(0,201,167,0.08); transform: translateY(-3px); }
+    .collab-badge span {
+      font-family: 'DM Serif Display', serif; font-size: 0.95rem; color: rgba(232,240,247,0.8); line-height: 1.4;
+    }
+    /* Logo slots: replace the <span> inside a .collab-badge with
+       <img src="logo-name.png" alt="Institution" style="max-width:100%;max-height:44px;object-fit:contain;" />
+       to swap in a real logo file once uploaded. */
+
+    /* ── TIMELINE (horizontal, graphical) ── */
+    .timeline-section { background: var(--dark); }
+    .timeline-track {
+      position: relative; width: 100%; max-width: 1400px;
+      height: 620px; margin: 10px auto 0;
+    }
+
+    .tl-line {
+      position: absolute; left: 1%; width: 94%; top: 380px; height: 3px; border-radius: 2px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--teal) 100%);
+    }
+    .tl-arrow {
+      position: absolute; left: 95%; top: 373px;
+      width: 0; height: 0;
+      border-top: 8px solid transparent; border-bottom: 8px solid transparent;
+      border-left: 14px solid var(--teal);
+      filter: drop-shadow(0 0 6px rgba(0,201,167,0.6));
+    }
+    .tl-start-year {
+      position: absolute; left: 1%; top: 398px;
+      font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: #fff;
+    }
+
+    .tl-node { position: absolute; top: 380px; }
+    .tl-dot {
+      position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--dark); border: 2px solid var(--blue); box-shadow: 0 0 10px rgba(0,174,239,0.55);
+      z-index: 2;
+    }
+    .tl-stem { position: absolute; left: -1px; width: 2px; background: rgba(255,255,255,0.22); }
+    .tl-label {
+      position: absolute; left: 50%; width: 150px; transform: translateX(-50%);
+      text-align: center; font-size: 0.74rem; line-height: 1.42; color: rgba(232,240,247,0.85);
+    }
+    .tl-label .tl-tag {
+      display: block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 4px;
+    }
+    .tl-label.tl-up { transform: translate(-50%, -100%); padding-bottom: 10px; }
+    .tl-label.tl-down { padding-top: 10px; }
+
+    @media (max-width: 900px) {
+      .tl-label { width: 100px; font-size: 0.64rem; line-height: 1.3; }
+      .tl-label .tl-tag { font-size: 0.54rem; }
+      .tl-start-year { font-size: 1.05rem; }
+    }
+    @media (max-width: 560px) {
+      .tl-label { width: 78px; font-size: 0.58rem; }
+    }
+
+    /* ── CTA ── */
+    .cta { padding: 100px 48px; text-align: center; background: var(--surface); border-top: 1px solid var(--border); }
+    .cta-inner { max-width: 540px; margin: 0 auto; }
+    .cta h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 16px; }
+    .cta p { color: var(--muted); margin-bottom: 36px; line-height: 1.7; }
+    .btn-lg { padding: 14px 36px; font-size: 0.95rem; border-radius: 10px; box-shadow: 0 0 28px rgba(0,174,239,0.25); }
+    .btn-lg:hover { box-shadow: 0 0 48px rgba(0,174,239,0.45); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 48px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+      background: var(--surface);
+    }
+    .footer-copy { color: rgba(255,255,255,0.2); font-size: 0.8rem; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .page-header { padding: 56px 20px; }
+      section.block { padding: 64px 20px; }
+      footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="DyeMera_Only_Logo_Black.png" alt="DyeMera" style="height: 36px; display: block;" />
+      <span class="logo">DyeMera</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="index.html#technology">Technology</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="contact-dark-landing.html">Contact</a></li>
+    </ul>
+    <a href="contact-dark-landing.html" class="btn">Request Quote</a>
+  </nav>
+
+  <section class="page-header">
+    <canvas id="glowCanvas"></canvas>
+    <h1>About DyeMera</h1>
+    <p></p>
+  </section>
+
+  <!-- MISSION -->
+  <section class="block mission">
+    <p class="section-label">Our Mission</p>
+    <h2 class="section-title">Illuminating Discovery, Together</h2>
+    <div class="mission-inner">
+      <p>DyeMera develops fluorescent labeling technology that helps researchers and clinicians see what was previously invisible. Since our founding patent on LipoFLUDDY, we've grown from an academic collaboration into a team building validated tools for imaging, drug screening, and clinical diagnostics.</p>
+      <p>We work closely with university hospitals, research institutes, and accelerator programs across Germany to bring our fluorophore technology from the lab bench into real research and clinical workflows.</p>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="block team" id="team">
+    <p class="section-label">The Team</p>
+    <h2 class="section-title">Who We Are</h2>
+    <p class="section-sub">A small, focused team bridging chemistry, business, and manufacturing.</p>
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div class="avatar avatar-1">MV</div>
+        <h3>Matteo Veronese</h3>
+        <span class="team-role">CEO</span>
+        <p class="bio">Leads DyeMera's overall vision and strategy, guiding the technology from patented discovery to a commercial and clinical-ready platform.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="avatar avatar-2">SB</div>
+        <h3>Selin Bozkurt</h3>
+        <span class="team-role">CCO</span>
+        <p class="bio">Drives commercial strategy and partnerships, having helped steer DyeMera through pilot programs, accelerators, and competition wins since joining the team.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="avatar avatar-3">SP</div>
+        <h3>Skyler Perot</h3>
+        <span class="team-role">CTO</span>
+        <p class="bio">Oversees production and scale-up of DyeMera's fluorophore products, ensuring consistency and quality from DyeMera to our customers.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COLLABORATORS -->
+  <section class="block collab" id="collaborators">
+    <p class="section-label">Collaborations</p>
+    <h2 class="section-title">Institutions We Work With</h2>
+    <p class="section-sub">Clinical, academic, and funding partners supporting DyeMera's research and growth.</p>
+    <div class="collab-grid">
+      <div class="collab-badge"><span>Uniklinik Frankfurt</span></div>
+      <div class="collab-badge"><span>Uniklinik Düsseldorf</span></div>
+      <div class="collab-badge"><span>Uniklinik Köln</span></div>
+      <div class="collab-badge"><span>Uniklinik Essen</span></div>
+      <div class="collab-badge"><span>FMP Berlin</span></div>
+      <div class="collab-badge"><span>DATI</span></div>
+      <div class="collab-badge"><span>HighTech.NRW</span></div>
+      <div class="collab-badge"><span>EXIST</span></div>
+      <div class="collab-badge"><span>Hult Prize</span></div>
+      <div class="collab-badge"><span>BRYCK</span></div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="block timeline-section" id="timeline">
+    <p class="section-label">Our Journey</p>
+    <h2 class="section-title">Timeline</h2>
+    <p class="section-sub">From patent to clinic — key milestones since 2022.</p>
+
+    <div class="timeline-track">
+
+      <div class="tl-line"></div>
+      <div class="tl-arrow"></div>
+      <div class="tl-start-year">2022</div>
+
+      <!-- LipoFLUDDY Patent -->
+      <div class="tl-node" style="left:3.2%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:0; height:60px;"></div>
+        <div class="tl-label tl-down" style="top:70px;"><span class="tl-tag">Patent</span>LipoFLUDDY Patent</div>
+      </div>
+
+      <!-- LipoFLUDDY Publication -->
+      <div class="tl-node" style="left:11.1%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:-90px; height:90px;"></div>
+        <div class="tl-label tl-up" style="top:-100px;"><span class="tl-tag">Publication</span>LipoFLUDDY Publication</div>
+      </div>
+
+      <!-- Uniklinik Frankfurt AML -->
+      <div class="tl-node" style="left:18.9%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:0; height:130px;"></div>
+        <div class="tl-label tl-down" style="top:140px;"><span class="tl-tag">Collaboration</span>Uniklinik Frankfurt (AML)</div>
+      </div>
+
+      <!-- DATI Pilot -->
+      <div class="tl-node" style="left:26.8%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:-70px; height:70px;"></div>
+        <div class="tl-label tl-up" style="top:-80px;"><span class="tl-tag">Funding</span>DATI Pilot (€180K)</div>
+      </div>
+
+      <!-- Pilot drug screening FMP Berlin -->
+      <div class="tl-node" style="left:34.6%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:0; height:90px;"></div>
+        <div class="tl-label tl-down" style="top:100px;"><span class="tl-tag">Pilot Program</span>Drug Screening — FMP Berlin</div>
+      </div>
+
+      <!-- Selin joins -->
+      <div class="tl-node" style="left:42.5%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:-140px; height:140px;"></div>
+        <div class="tl-label tl-up" style="top:-150px;"><span class="tl-tag">Team Growth</span>Selin Joins as CCO</div>
+      </div>
+
+      <!-- Skyler joins -->
+      <div class="tl-node" style="left:50.3%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:0; height:60px;"></div>
+        <div class="tl-label tl-down" style="top:70px;"><span class="tl-tag">Team Growth</span>Skyler Joins as CTO</div>
+      </div>
+
+      <!-- HighTech.NRW -->
+      <div class="tl-node" style="left:58.2%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:-100px; height:100px;"></div>
+        <div class="tl-label tl-up" style="top:-110px;"><span class="tl-tag">Accelerator</span>HighTech.NRW Accelerator</div>
+      </div>
+
+      <!-- EXIST -->
+      <div class="tl-node" style="left:63.4%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:-200px; height:200px;"></div>
+        <div class="tl-label tl-up" style="top:-210px;"><span class="tl-tag">Funding</span>EXIST (€150K)</div>
+      </div>
+
+      <!-- Hult Prize -->
+      <div class="tl-node" style="left:71.3%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:0; height:120px;"></div>
+        <div class="tl-label tl-down" style="top:130px;"><span class="tl-tag">Competition</span>Hult Prize Semifinal (21 of 18,000)</div>
+      </div>
+
+      <!-- BRYCK -->
+      <div class="tl-node" style="left:78%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:0; height:60px;"></div>
+        <div class="tl-label tl-down" style="top:70px;"><span class="tl-tag">Competition</span>BRYCK (1st Place)</div>
+      </div>
+
+      <!-- Hospital collaboration cluster -->
+      <div class="tl-node" style="left:83.9%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:-90px; height:90px;"></div>
+        <div class="tl-label tl-up" style="top:-100px;"><span class="tl-tag">Clinical Expansion</span>Uniklinik Frankfurt (Glioma)</div>
+      </div>
+
+      <div class="tl-node" style="left:86%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:-150px; height:150px;"></div>
+        <div class="tl-label tl-up" style="top:-160px;">Uniklinik Düsseldorf (Breast)</div>
+      </div>
+
+      <div class="tl-node" style="left:88.2%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:-210px; height:210px;"></div>
+        <div class="tl-label tl-up" style="top:-220px;">Uniklinik Köln (CLL)</div>
+      </div>
+
+      <div class="tl-node" style="left:90.3%;">
+        <div class="tl-dot"></div>
+        <div class="tl-stem" style="top:-270px; height:270px;"></div>
+        <div class="tl-label tl-up" style="top:-280px;">Uniklinik Essen (Prostate)</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <div class="cta-inner">
+      <h2>Want to Work With Us?</h2>
+      <p>Whether you're a research lab, hospital, or potential collaborator — we'd love to hear from you.</p>
+      <a href="contact-dark-landing.html" class="btn btn-lg">Contact</a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="DyeMera_Only_Logo_Black.png" alt="DyeMera" style="height: 28px; display: block;" />
+      <span class="logo" style="font-size: 1.1rem;">DyeMera</span>
+    </a>
+    <span class="footer-copy">2026 DyeMera. All rights reserved.</span>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('glowCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const COLORS = [
+      {r:0,  g:174,b:239},
+      {r:0,  g:201,b:167},
+      {r:100,g:220,b:255},
+      {r:0,  g:230,b:180}
+    ];
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.baseSize = this.size;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 0.6 + 0.2;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        this.wanderAngle = angle;
+        this.wanderSpeed = (Math.random() - 0.5) * 0.04;
+        this.life = 0;
+        this.maxLife = Math.random() * 400 + 250;
+        this.glowRadius = Math.random() * 20 + 8;
+        this.pulse = Math.random() * Math.PI * 2;
+        this.pulseSpeed = Math.random() * 0.025 + 0.008;
+        this.colorPhase = Math.random() * Math.PI * 2;
+        this.colorSpeed = Math.random() * 0.015 + 0.005;
+      }
+      update() {
+        this.wanderAngle += this.wanderSpeed;
+        this.vx += (Math.cos(this.wanderAngle) * 0.6 - this.vx) * 0.02;
+        this.vy += (Math.sin(this.wanderAngle) * 0.6 - this.vy) * 0.02;
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < -50) this.x = canvas.width + 50;
+        if (this.x > canvas.width + 50) this.x = -50;
+        if (this.y < -50) this.y = canvas.height + 50;
+        if (this.y > canvas.height + 50) this.y = -50;
+        this.life++;
+        this.pulse += this.pulseSpeed;
+        this.colorPhase += this.colorSpeed;
+        this.size = this.baseSize + Math.sin(this.pulse) * 0.6;
+        if (this.life > this.maxLife) this.reset();
+      }
+      draw() {
+        const progress = this.life / this.maxLife;
+        const alpha = progress < 0.1 ? progress / 0.1 : progress > 0.8 ? 1 - (progress - 0.8) / 0.2 : 1;
+        const t = (Math.sin(this.colorPhase) + 1) / 2;
+        const r = Math.round(160 - t * 160);
+        const g = Math.round(80 + t * 150);
+        const b = Math.round(255 - t * 155);
+        const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.glowRadius);
+        grad.addColorStop(0,    'rgba(' + r + ',' + g + ',' + b + ',' + (0.18 * alpha) + ')');
+        grad.addColorStop(0.25, 'rgba(' + r + ',' + g + ',' + b + ',' + (0.04 * alpha) + ')');
+        grad.addColorStop(0.55, 'rgba(' + r + ',' + g + ',' + b + ',0)');
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.glowRadius, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+        const core = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2);
+        core.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')');
+        core.addColorStop(1, 'rgba(' + r + ',' + g + ',' + b + ',0)');
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
+        ctx.fillStyle = core;
+        ctx.fill();
+      }
+    }
+
+    class Blob {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.r = Math.random() * 280 + 180;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        this.alpha = Math.random() * 0.06 + 0.03;
+        this.pulse = Math.random() * Math.PI * 2;
+        this.pulseSpeed = Math.random() * 0.008 + 0.003;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.pulse += this.pulseSpeed;
+        if (this.x < -this.r) this.x = canvas.width + this.r;
+        if (this.x > canvas.width + this.r) this.x = -this.r;
+        if (this.y < -this.r) this.y = canvas.height + this.r;
+        if (this.y > canvas.height + this.r) this.y = -this.r;
+      }
+      draw() {
+        const cr = this.color.r, cg = this.color.g, cb = this.color.b;
+        const radius = this.r + Math.sin(this.pulse) * 30;
+        const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, radius);
+        grad.addColorStop(0,   'rgba(' + cr + ',' + cg + ',' + cb + ',' + this.alpha + ')');
+        grad.addColorStop(0.5, 'rgba(' + cr + ',' + cg + ',' + cb + ',' + (this.alpha * 0.4) + ')');
+        grad.addColorStop(1,   'rgba(' + cr + ',' + cg + ',' + cb + ',0)');
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+      }
+    }
+
+    let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+    window.addEventListener('mousemove', function(e) {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+
+    const particles = Array.from({ length: 120 }, function() { return new Particle(); });
+    const blobs = Array.from({ length: 6 }, function() { return new Blob(); });
+    let frame = 0;
+
+    ctx.fillStyle = '#080e14';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      frame++;
+      ctx.fillStyle = 'rgba(8,14,20,0.18)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      blobs.forEach(function(b) { b.update(); b.draw(); });
+      const mg = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 200);
+      mg.addColorStop(0,   'rgba(0,174,239,0.06)');
+      mg.addColorStop(0.5, 'rgba(0,174,239,0.02)');
+      mg.addColorStop(1,   'rgba(0,174,239,0)');
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, 200, 0, Math.PI * 2);
+      ctx.fillStyle = mg;
+      ctx.fill();
+      if (frame % 6 === 0) {
+        const p = particles[Math.floor(Math.random() * particles.length)];
+        if (p.life > p.maxLife * 0.8) {
+          p.reset();
+          p.x = mouse.x + (Math.random() - 0.5) * 60;
+          p.y = mouse.y + (Math.random() - 0.5) * 60;
+        }
+      }
+      particles.forEach(function(p) { p.update(); p.draw(); });
+    }
+
+    animate();
+  </script>
+
+</body>
+</html>
